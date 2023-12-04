@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Student Card Generator</title>
+  </head>
+  <style>
+            body {
+              background-color: black;
+              background-size: cover;
+              color: lightgreen;
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+              font-family: Arial, sans-serif;
+              margin: 0;
+              padding: 0;
+            }
+
+            .container {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              min-height: 100vh;
+            }
+
+            .input-container {
+              background-color: lightblue;
+              padding: 20px;
+              border-radius: 10px;
+              width: 80%;
+              max-width: 500px;
+              text-align: center;
+            }
+
+            input[type="text"] {
+              padding: 10px;
+              margin: 10px 0;
+              border: none;
+              border-radius: 5px;
+              width: 100%;
+            }
+
+            label {
+              color: white;
+            }
+
+            button {
+              background-color: blue;
+              color: white;
+              padding: 10px 20px;
+              border: none;
+              cursor: pointer;
+              border-radius: 5px;
+              margin-top: 10px;
+            }
+
+            button:hover {
+              background-color: blue;
+            }
+            #user-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+        .result-container {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 20px;
+          justify-content: center;
+          margin-top: 20px;
+        }
+
+        .user-card {
+      display: flex;
+      align-items: center;
+      background-color: #333;
+      padding: 15px;
+      border-radius: 10px;
+      width: 400px;
+    }
+
+    .user-card img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 20px;
+    }
+
+    .details {
+      flex-grow: 1;
+    }
+
+    .details h2 {
+      margin-top: 0;
+    }
+
+        .user-card:hover {
+          transform: scale(1.05);
+        }
+         flex-wrap: wrap;
+              gap: 20px;
+              text-align: center;
+              color: lightgreen;
+              margin-top: 20px;
+              padding: 10px;
+            }
+
+            .user-card img {
+              width: 150px;
+              height: 150px;
+              border-radius: 50%;
+              object-fit: cover;
+            }
+            .user-card:hover {
+              transform: scale(1.05);
+            }
+  </style>
+  <body>
+    <div class="container">
+      <h1>Limkokwing Student Card Generator</h1>
+      <div class="input-container">
+        <form id="studentForm">
+          <label for="program">Program of Study:</label>
+          <input type="text" id="program" required /><br />
+
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" required /><br />
+
+          <label for="studentNumber">Student Number:</label>
+          <input type="text" id="studentNumber" required /><br />
+
+          <label for="year">Year of Entry:</label>
+          <input type="number" id="year" required /><br />
+
+          <input type="file" id="fileInput" />
+          <button type="button" onclick="generateCard()">Generate Card</button>
+        </form>
+      </div>
+
+      <div class="result-container" id="result"></div>
+    </div>
+    <script>
+      function generateCard() {
+        const program = document.getElementById("program").value;
+        const year = document.getElementById("year").value;
+        const name = document.getElementById("name").value;
+        const studentNumber = document.getElementById("studentNumber").value;
+        const fileInput = document.getElementById("fileInput").files[0];
+
+        const cardContainer = document.getElementById("result");
+
+        const card = document.createElement("div");
+        card.classList.add("user-card");
+
+        const avatar = document.createElement("img");
+        avatar.src = fileInput
+          ? URL.createObjectURL(fileInput)
+          : "placeholder.jpg";
+        avatar.alt = "Avatar";
+        avatar.classList.add("avatar");
+        card.appendChild(avatar);
+
+        const details = document.createElement("div");
+        details.classList.add("details");
+        details.innerHTML = `
+    <h2>Name: ${name}</h2>
+    <p>Program of Study: ${program}</p>
+    <p>Year of Entry: ${year}</p>
+    <p>Student ID: ${studentNumber}</p>
+  `;
+        card.appendChild(details);
+
+        cardContainer.appendChild(card);
+      }
+    </script>
+  </body>
+</html>
